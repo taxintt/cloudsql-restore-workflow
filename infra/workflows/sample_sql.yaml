@@ -74,7 +74,7 @@ main:
     #       seconds: 60 # 60sec * 1min
     #     next: check_job
 
-    # 2. execute sql
+    # 2. execute sql statement
     - exec_query_to_cloud_sql:
         call: exec_query
         args:
