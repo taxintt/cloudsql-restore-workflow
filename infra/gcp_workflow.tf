@@ -14,7 +14,7 @@ resource "google_workflows_workflow" "sample_workflow" {
 
   # https://www.terraform.io/language/functions/templatefile
   # https://qiita.com/minamijoyo/items/3a7467f70d145ac03324#templatefile
-  source_contents = templatefile("${path.module}/workflows/sample_sql.yaml", {
+  source_contents = templatefile("${path.module}/workflows/restore_db.yaml", {
     project       = "${var.project}",
     region        = "${var.region}",
     tier          = "db-n1-standard-1",

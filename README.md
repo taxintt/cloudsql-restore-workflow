@@ -5,7 +5,7 @@ This is a sample for restore of Cloud SQL instance.
 - Execute sql statements (by using cloud functions)
 - Create a backup of the database
 
-1. Prepare a backup of cloud sql instance
+1. Prepare an initial backup of cloud sql instance
 
 ```bash
 ❯ gcloud sql backups list --project <project_name> --instance sample-instance-v1-for-backup
@@ -15,6 +15,10 @@ ID             WINDOW_START_TIME              ERROR  STATUS      INSTANCE
 ```
 
 2. Setup infra
+
+> **Note**
+> Specify cloud sql instance id (`sample-instance-v1-for-backup`) and backup id (`1654919319590`) in `infra/workflows/restore_db.yaml`
+
 ```bash
 cd infra
 terraform apply -var project="<gcp_project_id>"
@@ -25,7 +29,7 @@ terraform apply -var project="<gcp_project_id>"
 4. Confirm the result
 
 > **Note**
-> You have to check the instance name that is created with random suffix by using cloud logging.
+> Check the instance name that is created with random suffix by using cloud logging.
 
 ```
 ❯ gcloud sql backups list --project <project_name> --instance sample-instance-v1-1654996390
