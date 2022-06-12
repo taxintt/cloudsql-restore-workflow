@@ -24,8 +24,8 @@ terraform apply -var project="<gcp_project_id>"
 
 4. Confirm the result
 
-::info::
-You have to check the instance name that is created with random suffix by using cloud logging.
+>> ::info::
+>> You have to check the instance name that is created with random suffix by using cloud logging.
 
 ```
 ❯ gcloud sql backups list --project <project_name> --instance sample-instance-v1-1654996390
