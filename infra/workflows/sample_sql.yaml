@@ -31,8 +31,9 @@ main:
             restoreBackupContext:
                 kind: sql#restoreBackupContext
                 project: $${project}
-                instanceId: $${instance + "-for-backup"}
-                backupRunId: 1654919319590
+                instanceId: $${instance + "-for-backup"} # TODO: Specify Cloud SQL instance id that is restored
+                backupRunId: 1654919319590 # TODO: Specify a backup id of Cloud SQL instance 
+    
     # https://cloud.google.com/workflows/docs/reference/googleapis/sqladmin/v1/instances/insert?hl=ja
     # - create_database:
     #     call: googleapis.sqladmin.v1beta4.databases.insert
@@ -55,24 +56,6 @@ main:
     #       project: $${project}
     #       instance: $${instance + "-" + random_id}
     #       database: ${database_name}
-    
-    # polling db status → not needed
-    # https://cloud.google.com/workflows/docs/sleeping?hl=ja
-    # - check_job:
-    #     call: googleapis.sqladmin.v1beta4.instances.get
-    #     args:
-    #       project: $${project}
-    #       instance: $${instance + "-" + random_id}
-    #     result: response
-    # - check_if_runnable:
-    #     switch:
-    #       - condition: $${response.state == "RUNNABLE"}
-    #         next: exec_query_to_cloud_sql
-    # - wait:
-    #     call: sys.sleep
-    #     args:
-    #       seconds: 60 # 60sec * 1min
-    #     next: check_job
 
     # 2. execute sql statement
     - exec_query_to_cloud_sql:
@@ -115,7 +98,6 @@ exec_query:
         call: http.post
         args:
           # https://cloud.google.com/workflows/docs/create-workflow-terraform
-          # 変数展開に関しては注意
           url: $${"https://" + region + "-" + project + ".cloudfunctions.net/" + function_name}
           body: 
             project: $${project}
