@@ -1,0 +1,6 @@
+# dir
+.terraform
+functions/output
+
+# file
+*.tfvars
